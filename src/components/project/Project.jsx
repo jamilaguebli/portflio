@@ -20,7 +20,7 @@ const projects = [
     description: "A Next.js/TypeScript education platform with blockchain rewards. Uses React, Tailwind CSS, Clerk (auth), Drizzle (DB), and shadcn UI for interactive learning. Incentivizes users with crypto/NFTs for completing courses.",
     image: "/donatello.png",
     tags: ["Next.js", "Tailwind CSS", "TypeScript", "Clerk", "Drizzle", "shadcn UI"],
-    link: "#",
+    link: "https://donatello-qkfultma9-jamilas-projects-42771f9a.vercel.app/",
     github: "https://github.com/jamilaguebli/donatello",
     color: "bg-[#112240]"
   },
@@ -30,8 +30,8 @@ const projects = [
     description: "Developed frontend for an immersive EdTech platform combining 3D gaming (Three.js), AI, and blockchain rewards using React, Zustand, and Tailwind CSS. Enhanced engagement by 35% through interactive WebGL experiences.",
     image: "/metaaurus.png",
     tags: ["React", "Three.js", "Tailwind CSS", "JavaScript", "Zustand"],
-    link: "#",
-    github: "#",
+    link: "https://metaaurus.vercel.app/",
+    github: "https://github.com/jamilaguebli/metaaurus",
     color: "bg-[#112240]"
   },
   {
@@ -40,7 +40,7 @@ const projects = [
     description: "Conception et développement de la partie front d'une application web permettant aux utilisateurs de chercher et trouver des emplois.",
     image: "/jobs.png",
     tags: ["TypeScript", "Next", "Tailwind CSS", "Clerk"],
-    link: "#",
+    link: "https://jobdemo-eight.vercel.app/",
     github: "https://github.com/jamilaguebli/Job",
     color: "bg-[#112240]"
   },
