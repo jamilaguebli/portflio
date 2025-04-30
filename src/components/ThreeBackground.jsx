@@ -25,36 +25,6 @@ const ThreeBackground = () => {
         const background = new THREE.Mesh(geometry, material);
         scene.add(background);
 
-        // Chargement des pétales
-        const textureLoader = new THREE.TextureLoader();
-        const petalTexture = textureLoader.load('/petal.png');
-        const petalCount = 100;
-        const petals = [];
-
-        const petalGeometry = new THREE.PlaneGeometry(0.4, 0.4);
-        const petalMaterial = new THREE.MeshBasicMaterial({
-            map: petalTexture,
-            transparent: true,
-            side: THREE.DoubleSide
-        });
-
-        // Création des pétales
-        for (let i = 0; i < petalCount; i++) {
-            const petal = new THREE.Mesh(petalGeometry, petalMaterial);
-            petal.position.set(
-                (Math.random() - 0.5) * 20,
-                Math.random() * 10,
-                (Math.random() - 0.5) * 10
-            );
-            petal.rotation.z = Math.random() * Math.PI * 2;
-            petal.fallSpeed = 0.02 + Math.random() * 0.05;
-            petal.swaySpeed = 0.005 + Math.random() * 0.01;
-            petal.rotationSpeed = 0.005 + Math.random() * 0.02;
-            petal.offset = Math.random() * Math.PI * 2;
-            scene.add(petal);
-            petals.push(petal);
-        }
-
         // Gestion du redimensionnement
         const handleResize = () => {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -73,19 +43,6 @@ const ThreeBackground = () => {
             if (materialRef.current) {
                 materialRef.current.time = time;
             }
-            
-            // Animation des pétales
-            petals.forEach(petal => {
-                petal.position.y -= petal.fallSpeed;
-                petal.position.x += Math.sin(time + petal.offset) * petal.swaySpeed;
-                petal.rotation.z += petal.rotationSpeed;
-                
-                // Réinitialiser la position si le pétale tombe trop bas
-                if (petal.position.y < -10) {
-                    petal.position.y = 10;
-                    petal.position.x = (Math.random() - 0.5) * 20;
-                }
-            });
             
             renderer.render(scene, camera);
         };

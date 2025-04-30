@@ -14,7 +14,11 @@ const SkillsSection = () => {
       { name: 'Tailwind', level: 95 },
       { name: 'Framer Motion', level: 85 },
       { name: 'Vue.js', level: 70 },
-      { name: 'Bootstrap', level: 75 }
+      { name: 'Bootstrap', level: 75 },
+      { name: 'Redux', level: 70 },
+      { name: 'Zustand', level: 70 },
+      { name: 'Three.js', level: 40 },
+      { name: 'Clerk', level: 70 }
     ],
     backend: [
       { name: 'Node.js', level: 60 },
@@ -28,8 +32,7 @@ const SkillsSection = () => {
       { name: 'Git', level: 90 },
       { name: 'Figma', level: 70 },
       { name: 'VS Code', level: 95 },
-      { name: 'Three.js', level: 40 },
-      { name: 'Clerk', level: 70 }
+    
     ]
   };
 
