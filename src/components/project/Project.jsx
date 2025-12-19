@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import  { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectText from './ProjectText';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
@@ -26,12 +26,12 @@ const projects = [
   },
   {
     id: 3,
-    title: "MetaAurus",
-    description: "Developed frontend for an immersive EdTech platform combining 3D gaming (Three.js), AI, and blockchain rewards using React, Zustand, and Tailwind CSS. Enhanced engagement by 35% through interactive WebGL experiences.",
-    image: "/metaaurus.png",
-    tags: ["React", "Three.js", "Tailwind CSS", "JavaScript", "Zustand"],
-    link: "https://metaaurus.vercel.app/",
-    github: "https://github.com/jamilaguebli/metaaurus",
+    title: "Showcase Website for Travel Beyond",
+    description: "Modern travel agency website built with React.js and Tailwind CSS, fully responsive and optimized for performance. Implements EmailJS for contact form submissions and i18next for multi-language support (Arabic, French, English). Features top destinations, travel packages, and client reviews, providing users with a smooth, engaging, and multilingual experience.",
+    image: "https://sumfinity.com/wp-content/uploads/2025/03/Museum-Of-The-Future-at-Night-1638x2048.jpg",
+    tags: ["React", "emailjs", "Tailwind CSS", "JavaScript", "i18next"],
+    link: "https://beyond-ochre.vercel.app/",
+    github: "https://github.com/jamilaguebli/beyond",
     color: "bg-[#112240]"
   },
   {
@@ -46,7 +46,10 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project, index, activeCard, setActiveCard }) => {
+const ProjectCard = ({ project, 
+  index,
+   activeCard, 
+   setActiveCard }) => {
   const cardRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -80,13 +83,13 @@ const ProjectCard = ({ project, index, activeCard, setActiveCard }) => {
         <motion.img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover"
+          className="object-cover w-full h-full"
           style={{ y: useTransform(scrollYProgress, [0, 1], [0, -50]) }}
         />
       </motion.div>
       
       {/* Content */}
-      <div className="relative z-20 h-full flex flex-col justify-end p-4 sm:p-6 md:p-8">
+      <div className="relative z-20 flex flex-col justify-end h-full p-4 sm:p-6 md:p-8">
         <motion.div
           className="mb-3 sm:mb-4 md:mb-6"
           initial={{ opacity: 0, y: 20 }}
@@ -94,13 +97,13 @@ const ProjectCard = ({ project, index, activeCard, setActiveCard }) => {
           transition={{ delay: 0.3 }}
         >
           <motion.h3 
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 md:mb-2 text-white line-clamp-2"
+            className="mb-1 text-lg font-bold text-white sm:text-xl md:text-2xl lg:text-3xl md:mb-2 line-clamp-2"
             whileHover={{ x: 5 }}
           >
             {project.title}
           </motion.h3>
           <motion.p 
-            className="text-xs sm:text-sm md:text-base text-gray-200 mb-3 sm:mb-4 md:mb-6 line-clamp-2 sm:line-clamp-3"
+            className="mb-3 text-xs text-gray-200 sm:text-sm md:text-base sm:mb-4 md:mb-6 line-clamp-2 sm:line-clamp-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: activeCard === project.id ? 1 : 0.8 }}
           >
@@ -127,7 +130,7 @@ const ProjectCard = ({ project, index, activeCard, setActiveCard }) => {
         </motion.div>
 
         <motion.div 
-          className="flex flex-col xs:flex-row gap-2 sm:gap-3 md:gap-4"
+          className="flex flex-col gap-2 xs:flex-row sm:gap-3 md:gap-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -165,7 +168,7 @@ const ProjectsSection = () => {
   return (
     <motion.section 
       id="projects" 
-      className="relative py-20 sm:py-28 md:py-32 overflow-hidden"
+      className="relative py-20 overflow-hidden sm:py-28 md:py-32"
       ref={containerRef}
     >
       {/* Floating elements */}
@@ -194,21 +197,21 @@ const ProjectsSection = () => {
         ))}
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container relative z-10 px-4 mx-auto sm:px-6">
         {/* Header with animated text */}
-        <div className="text-center mb-16 sm:mb-20 md:mb-24">
+        <div className="mb-16 text-center sm:mb-20 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
+            className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl sm:mb-6"
           >
             <ProjectText />
           </motion.div>
         </div>
 
         {/* Projects grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 sm:gap-8">
           {projects.map((project, index) => (
             <ProjectCard 
               key={project.id}

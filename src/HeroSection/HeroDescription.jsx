@@ -1,13 +1,13 @@
 // HeroDescription.jsx
-import React from 'react'
+
 import { motion } from 'framer-motion'
 
-const description = "Full-Stack Developer with 8 months of hands-on experience in building scalable web applications using React.js, Three.js, Node.js, and modern databases. Skilled in both frontend interactivity (3D graphics, responsive UIs) and backend development (APIs, server logic). Passionate about end-to-end development, performance optimization, and clean architecture.".split(' ');
+const description = "I am a passionate Fullstack Developer with experience in React.js, Next.js, Vue.js, and Node.js. I build modern, responsive, and scalable web applications, focusing on clean and efficient code. I enjoy solving problems, learning new technologies, and delivering seamless user experiences across both front-end and back-end development.".split(' ');
 
 const HeroDescription = () => {
   return (
     <div className="pt-8">
-      <p className='text-white/80 font-medium p-2 text-lg'>
+      <p className='p-2 text-lg font-medium text-white/80'>
         {description.map((el, i) => (
           <motion.span
             key={i}

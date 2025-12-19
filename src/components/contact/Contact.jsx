@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiGithub, FiLinkedin, FiSend } from 'react-icons/fi';
-import ContactText from './ContactText';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { FiMail, FiPhone, FiGithub, FiLinkedin, FiSend } from "react-icons/fi";
+import emailjs from "@emailjs/browser";
+import ContactText from "./ContactText";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    user_name: "",
+    user_email: "",
+    subject: "",
+    message: "",
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,47 +22,72 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulation d'envoi
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      setIsSubmitting(false);
-      setSubmitMessage('Message envoyé avec succès!');
-      setFormData({ name: '', email: '', message: '' });
-      
-      // Reset message after 3 seconds
-      setTimeout(() => setSubmitMessage(''), 3000);
-    }, 1500);
+
+    emailjs
+      .send(
+        "service_i08xvg5", // 🔴 replace with your Service ID
+        "template_8tar7qj", // 🔴 replace with your Template ID
+        {
+          user_name: formData.user_name,
+          user_email: formData.user_email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        "KnJ6G3OrIKfxQV4k9" // 🔴 replace with your Public Key
+      )
+      .then(() => {
+        setIsSubmitting(false);
+        setSubmitMessage("Message sent successfully!");
+        setFormData({ user_name: "", user_email: "", subject: "", message: "" });
+        setTimeout(() => setSubmitMessage(""), 3000);
+      })
+      .catch(() => {
+        setIsSubmitting(false);
+        setSubmitMessage("Error sending message ❌");
+      });
   };
 
   const contactItems = [
-    { icon: <FiMail className="text-xl" />, text: 'jamilaguebli02@gmail.com', href: 'mailto:jamilaguebli02@gmail.com' },
-    { icon: <FiPhone className="text-xl" />, text: '+216 25759338', href: 'tel:25759338' },
-    { icon: <FiGithub className="text-xl" />, text: 'GitHub', href: 'https://github.com/jamilaguebli' },
-    { icon: <FiLinkedin className="text-xl" />, text: 'LinkedIn', href: 'https://www.linkedin.com/in/jamila-guebli-923ba5251?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' }
+    {
+      icon: <FiMail className="text-xl" />,
+      text: "jamilaguebli02@gmail.com",
+      href: "mailto:jamilaguebli02@gmail.com",
+    },
+    {
+      icon: <FiPhone className="text-xl" />,
+      text: "+216 25759338",
+      href: "tel:25759338",
+    },
+    {
+      icon: <FiGithub className="text-xl" />,
+      text: "GitHub",
+      href: "https://github.com/jamilaguebli",
+    },
+    {
+      icon: <FiLinkedin className="text-xl" />,
+      text: "LinkedIn",
+      href: "https://www.linkedin.com/in/jamila-guebli-923ba5251",
+    },
   ];
 
   return (
-    <section id='contact' className="py-16 px-4 text-white">
+    <section id="contact" className="px-4 py-16 text-white">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <div className="container mx-auto px-4 relative z-10 flex flex-col items-center">
-                   <div className="text-center mb-16 w-full">
-                     <div className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
-                       <ContactText/>
-                     </div>
-                   </div>
-                   </div>
-          
+          <div className="container flex flex-col items-center px-4 mx-auto">
+            <div className="mb-4 text-4xl font-bold md:text-6xl lg:text-7xl">
+              <ContactText />
+            </div>
+          </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid gap-12 md:grid-cols-2">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -76,29 +104,23 @@ const Contact = () => {
                 whileHover={{ x: 5 }}
                 className="flex items-center space-x-4 group"
               >
-                <div className="p-3 rounded-full bg-gray-800 group-hover:bg-[#99e7ff] transition-all duration-300">
+                <div className="p-3 rounded-full bg-gray-800 group-hover:bg-[#99e7ff] transition-all">
                   {item.icon}
                 </div>
-                <div>
-                  <p className="text-gray-400 text-sm">{(item.text.includes('@') || item.text === '25759338') ? '' : 'Visit my'}</p>
-                  <p className="font-medium group-hover:text-[#99e7ff] transition-colors duration-300">
-                    {item.text}
-                  </p>
-                </div>
+                <p className="font-medium group-hover:text-[#99e7ff] transition-colors">
+                  {item.text}
+                </p>
               </motion.a>
             ))}
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="pt-8 border-t border-gray-700"
-            >
-              <h4 className="text-xl font-semibold mb-4">Let's work together</h4>
+            <div className="pt-8 border-t border-gray-700">
+              <h4 className="mb-4 text-xl font-semibold">
+                Let&apos;s work together
+              </h4>
               <p className="text-gray-400">
-                I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                I&apos;m always open to discussing new projects, creative ideas, or opportunities to collaborate.
               </p>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Contact Form */}
@@ -106,84 +128,83 @@ const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-xl border border-gray-700 shadow-xl"
+            className="p-8 border border-gray-700 shadow-xl bg-gray-800/50 backdrop-blur-sm rounded-xl"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              <motion.div whileHover={{ scale: 1.01 }}>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
-                  Your Name
-                </label>
+
+              {/* Name */}
+              <div>
+                <label className="text-sm text-gray-300">Your Name</label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  name="user_name"
+                  value={formData.user_name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#99e7ff] focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-[#99e7ff]"
                 />
-              </motion.div>
+              </div>
 
-              <motion.div whileHover={{ scale: 1.01 }}>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-                  Your Email
-                </label>
+              {/* Email */}
+              <div>
+                <label className="text-sm text-gray-300">Your Email</label>
                 <input
                   type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
+                  name="user_email"
+                  value={formData.user_email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#99e7ff] focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-[#99e7ff]"
                 />
-              </motion.div>
+              </div>
 
-              <motion.div whileHover={{ scale: 1.01 }}>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
-                  Your Message
-                </label>
+              {/* Subject */}
+              <div>
+                <label className="text-sm text-gray-300">Subject</label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-[#99e7ff]"
+                />
+              </div>
+
+              {/* Message */}
+              <div>
+                <label className="text-sm text-gray-300">Your Message</label>
                 <textarea
-                  id="message"
                   name="message"
                   rows="5"
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#99e7ff] focus:border-transparent transition-all"
-                ></textarea>
-              </motion.div>
+                  className="w-full px-4 py-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-[#99e7ff]"
+                />
+              </div>
 
-              <motion.button
+              {/* Button */}
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`w-full flex items-center justify-center space-x-2 py-3 px-6 rounded-lg font-medium ${
+                className={`w-full flex justify-center items-center gap-2 py-3 rounded-lg font-medium transition ${
                   isSubmitting
-                    ? 'bg-gray-600 cursor-not-allowed'
-                    : 'bg-[#99e7ff]   '
-                } transition-all duration-300`}
+                    ? "bg-gray-600"
+                    : "bg-[#99e7ff] hover:opacity-90"
+                }`}
               >
-                {isSubmitting ? (
-                  'Sending...'
-                ) : (
-                  <>
-                    <FiSend />
-                    <span>Send Message</span>
-                  </>
-                )}
-              </motion.button>
+                <FiSend />
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </button>
 
+              {/* Success Message */}
               {submitMessage && (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center text-teal-400 mt-4"
-                >
+                <p className="mt-4 text-center text-teal-400">
                   {submitMessage}
-                </motion.p>
+                </p>
               )}
+
             </form>
           </motion.div>
         </div>
